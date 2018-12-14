@@ -9,7 +9,7 @@ ccpi16a_grt_rtw
 rct_helico_grt_rtw
 
 
-The mutants generated from these models are present in the following folders:
+Sample mutants generated from these models are present in the following folders:
 mutants_b747cl      
 mutants_ccpi16a
 mutants_rct_helico  
