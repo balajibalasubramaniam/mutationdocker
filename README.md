@@ -1,6 +1,6 @@
 # Cyber-Physical Mutation tool
 
-This tool is part of a master thesis done at University of Nebraska-Lincoln.
+This tool is part of a master thesis done at the University of Nebraska-Lincoln.
 
 Author names: Balaji Balasubramaniam, Prof. Justin Bradley, Prof. Sebastian Elbaum
 
