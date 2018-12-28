@@ -1,9 +1,8 @@
-# Master thesis
-Tool name: Cyber-Physical Mutation tool
+# Cyber-Physical Mutation tool
+
+This tool is part of a master thesis done at University of Nebraska-Lincoln.
 
 Author names: Balaji Balasubramaniam, Prof. Justin Bradley, Prof. Sebastian Elbaum
-
-University of Nebraska-Lincoln
 
 # Configure
 1) Go to `Makefile` and change path, the below line, in headers to point to llvm installation in your computer.
