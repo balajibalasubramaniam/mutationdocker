@@ -114,3 +114,19 @@ categories = PET (Precision&Accuracy, Exception Handling, Time and Space)
 
 # Output details
 The generated mutants are present in a folder called 'mutants'. This folder contains subfolders for each template as mentioned in the MutationTemplates file.
+
+# Troubleshoot
+Thanks to William (Mike) Turner from NIMBUS lab. Here are some isssue that was found and fixed.
+
+1) It appears that Docker is now default configured to require sudo access. Mike suspects it is because they found a security flaw whereby a user without superuser access can actually gain it through a Docker container.
+ 
+  Once you add sudo to my docker commands, it runs.
+
+2) Troubles with running the mutator code:
+
+  a) “./mutator” did not default to an executable script
+        - Used chmod 775 to make it executable.
+        
+  b) First run of ./mutator as in README, “./mutator -s 7 -n 0 -c PET b747cl.c” resulted in coredump error that “cloc” not found.
+        - Ubuntu VM returns a cloc –version of 1.60
+        - Ran apt-get install cloc within Docker container, got version 1.74, and now the script runs with output below.
