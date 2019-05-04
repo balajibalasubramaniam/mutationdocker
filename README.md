@@ -80,7 +80,7 @@ $ ./mutator -seed=7 -number=0 -category=PET b747cl.c
 $ ./mutator -s 7 -n 0 -c PET b747cl.c
 ```
 
-#Tool run - step by step tutorial
+# Tool run - step by step tutorial
 
 Normal Steps: 
 1) Unzip mutationdocker.zip file 
