@@ -12,15 +12,47 @@ Cyber-Physical Mutation tool has five different phases:
 4) Mutant execution - using "runsave.bash" script - change the path in `runsave.bash` depending on your project.
 5) Result analysis - MATLAB scripts, see "folder structure" section of this document. 
 
-In general, each mutation tool has different inputs, some mutation tools require a C function as input. The Cyber-Physical mutation tool requires a C family programming file as input. As a result, in order to understand about the input file, this tool has to recognize all the dependencies of the C project where the input C family programming file resides. This dependency linking is carried out using the process called "configuration". Under "configure" section of this document, I have explained these steps as optional. The depedencies are provided in `config.txt` file (it will vary based on the project), after you change this file based on your project you have to execute "./runconfiguration <config file name>". I have mentioned this instruction under "To build and run" section of this document.
+In general, each mutation tool has different inputs, some mutation tools require a C function as input. The Cyber-Physical mutation tool requires a C family programming file as input. As a result, in order to understand about the input file, this tool has to recognize all the dependencies of the C project where the input C family programming file resides. This dependency linking is carried out using the process called "configuration". Under "configure" section of this document, I have explained these steps as optional. The depedencies are provided in `config.txt` file (it will vary based on the project), after you change this file based on your project you have to execute `./runconfiguration <config file name>`. I have mentioned this instruction under "To build and run" section of this document.
  
 Automation scripts are needed to automate the compilation and execution of the mutated target_file, here you have to specify the path based on your project. Please find instructions under the "configure" section of this document.
 
 # Definitions
-Mutation - Change certain statement in the source code of a target file. 
-Mutator - A software tool that automatically does the mutation on the programming files. 
-Mutationdocker - Virtual machine environment configured to run the mutator.
-Mutant - Changed code that is different from the orignal program.
+Mutation - Change certain statement in the source code of a target file.<br />
+Mutator - A software tool that automatically does the mutation on the programming files. <br />
+Mutationdocker - Virtual machine environment configured to run the mutator.<br />
+Mutant - Programming file that has changed code that is different from the orignal program.<br />
+
+# Folder structure and sample files
+
+Folder information (/mutationdocker/code):<br />
+The mutation tool runs for all C programming language family. It was tested with three different MATLAB Simulink control system project, and one system with no corresponding model. One system with no corresponding model is ardupilot, the control files are present 'https://github.com/balajibalasubramaniam/ardupilot' folder.
+
+Three different MATLAB Simulink control system project files are present in the folloing folders (you have to make sure all the depedencies are properly configured in the `config.txt` file and available in your system):<br />
+b747cl_grt_rtw<br />
+ccpi16a_grt_rtw<br />
+rct_helico_grt_rtw<br />
+
+Sample mutants generated from these models are present in the following folders:<br />
+mutants_b747cl<br />
+mutants_ccpi16a<br />
+mutants_rct_helico<br />
+
+The actual code of the mutation tool is present `../mutationdocker/code/mutator` folder, and the output mutants after executing the tool will be present `../mutationdocker/code/mutator/mutants` folder. For every run, you have to delete all the files present inside the `mutator/mutants` folder, do not delete the folder, delete only the contents of the folder.
+
+Post processing analysis are written using MATLAB scripts, the files for them are present in 'mutator/matlab_scripts'.
+
+To run the tool:
+1) cd into `../mutationdocker/code/mutator` folder
+2) start the docker using the command `docker start mutationcontainer` in the terminal.
+3) generate mutants by `./mutator -s 7 -n 0 -c PET b747cl.c`, use help `./mutator -help` to know about the options.
+4) stop the docker using the command 'docker stop mutationcontainer' in the terminal.
+
+
+Some sample commands:<br />
+./mutator -s 7 -n 0 -c PET ../ccpi16a_ert_rtw/ccpi16a.c<br />
+./mutator -s 7 -n 0 -c PET ../rct_helico_ert_rtw/rct_helico.c<br />
+./mutator -s 7 -n 0 -c PET ../ardupilot/ardupilot/libraries/AP_Avoidance/AP_Avoidance.cpp<br />
+./mutator -s 7 -n 0 -c PET ../ardupilot/ardupilot/libraries/AC_AttitudeControl/AC_PosControl.cpp<br />
 
 # Boeing 747 closed loop - b747cl
 If you plan to run the Boeing 747 project then make sure all the dependency linking is specified in the config.txt file. For each project, I already created config files with suffiix project names. For example, `config_b7474cl.txt` is for b7474 project, you can find all these files under `mutationdocker/code/mutator/` folder. Make sure all these depedencies are available and discoverable. You can ensure that the b747 project can be run separately. The reason being it is generated from MATLAB, as a result it may need some MATLAB dependencies. You can do this by getting into `mutationdocker/code/b747cl_grt_rtw` directory, and then running `make -f b747cl.mk` command for compilation and `./b747cl` for execution. 
@@ -34,7 +66,7 @@ HEADERS := -isystem /usr/lib/llvm-4.0/include/
 
 2) Optional - Go to `compilemutator.bash` file and change the container name if you are using different docker container.`compilemutator.bash` file is used to automate two steps: make and then run. It is recommended to first follow the step by step tutorial before modifying or running the `compilemutator.bash` file.
 
-3) Optional - change the configuration paths for compiler of target_file in `config.txt` acccording to your software environment. If you make changes to `config.txt` file then you have to execute `./runconfiguration` first. Similarly, if you make chages to `Makefile` then you have to re-build it with `make` before running the tool. To summarize, the order of execution is first `./runconfiguration`, followed by `make`, and then the tool execution.
+3) Optional - change the configuration paths for compiler of target_file in `config.txt` acccording to your software environment. If you make changes to `config.txt` file (inside `mutationdocker/code/mutator/` folder) then you have to execute `./runconfiguration` first. Similarly, if you make chages to `Makefile` then you have to re-build it with `make` before running the tool. To summarize, the order of execution is first `./runconfiguration`, followed by `make`, and then the tool execution.
 
 4) Optional - change the path in `compilemutator.bash`, `compilerun.bash`, and `runsave.bash` based on the location where you have unzipped and placed the mutationdocker for the project directory of the target_file. `compilerun.bash`, and `runsave.bash` file is used to automate the compilation and execution of target_file, it varies depending on the project. 
 
@@ -152,3 +184,30 @@ Thanks to William (Mike) Turner from NIMBUS lab. Here are some isssue that was f
   a) “./mutator” did not default to an executable script. Use chmod 775 to make it executable.
         
   b) First run of ./mutator as in README, “./mutator -s 7 -n 0 -c PET b747cl.c” resulted in coredump error that “cloc” not found. Ubuntu VM returns a cloc –version of 1.60. You have to run apt-get install cloc within Docker container, got version 1.74, and now the script runs.
+  
+  # FAQ
+  1) Can I run this mutation tool against my poject in C/ C++?<br />
+  Yes, you can. The tool is completely free to use. The `make` command you use for your project build will be setting up  flags during the build process. First, you have to mention these flag settings, include directories and any depedencies in the mutation tool using the `config.txt` file. And then you have to execute `./runconfiguration`. Please note, if you make chages to `Makefile` of the mutation tool then you have to re-build it with `make` before running the tool. To summarize, the order of execution is first `./runconfiguration`, followed by `make`, and then the tool execution.
+  
+  2) Can I replicate your results?<br />
+  Yes, you can. But unfortunately, this docker contains only the tool and already mutated files for three projects: b747cl, cruise control, and rct helicoper. Since MATLAB&copy; is a licensed software and the three projects uses MATLAB&copy; specific dataatypes and libraries generated from MATLAB&copy; Simulink environment, we were unable to provide all the related files. However, if you have a MATLAB&copy; license then you can download these three different MATLAB&copy; Simulink control system project files for free in the following link:
+  
+Boeing 747 closed loop: https://www.mathworks.com/matlabcentral/fileexchange/3019-airlib. 
+
+cruise control: http://ctms.engin.umich.edu/CTMS/index.php?example=CruiseControl&section=SimulinkModeling
+
+RCT helicopter: https://www.mathworks.com/help/control/examples/multi-loop-control-of-a-helicopter.html 
+  
+  Three different MATLAB Simulink control system project files are present in the folloing folders (you have to make sure all the depedencies are properly configured in the `config.txt` file and available in your system). **To run these projects sepearately checkout the `make` commands inside these folders. Also, checkout the `compilerun.bash`, and `runsave.bash` scripts.**<br/>
+b747cl_grt_rtw<br/>
+ccpi16a_grt_rtw<br/>
+rct_helico_grt_rtw
+
+Sample mutants generated from these models are present in the following folders:<br/>
+mutants_b747cl<br/>
+mutants_ccpi16a<br/>
+mutants_rct_helico
+
+Using this information and looking into the `config` files (inside `mutationdocker/code/mutator/` folder - config_b747cl.txt,  config_ccpi16a.txt, and config_rct_helico.txt) for each project will help you to replicate and also compare the results with mine. 
+
+
