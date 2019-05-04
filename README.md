@@ -124,9 +124,6 @@ Thanks to William (Mike) Turner from NIMBUS lab. Here are some isssue that was f
 
 2) Troubles with running the mutator code:
 
-  a) “./mutator” did not default to an executable script
-        - Used chmod 775 to make it executable.
+  a) “./mutator” did not default to an executable script. Use chmod 775 to make it executable.
         
-  b) First run of ./mutator as in README, “./mutator -s 7 -n 0 -c PET b747cl.c” resulted in coredump error that “cloc” not found.
-        - Ubuntu VM returns a cloc –version of 1.60
-        - Ran apt-get install cloc within Docker container, got version 1.74, and now the script runs with output below.
+  b) First run of ./mutator as in README, “./mutator -s 7 -n 0 -c PET b747cl.c” resulted in coredump error that “cloc” not found. Ubuntu VM returns a cloc –version of 1.60. You have to run apt-get install cloc within Docker container, got version 1.74, and now the script runs.
