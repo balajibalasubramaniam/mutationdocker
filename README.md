@@ -1,8 +1,8 @@
 # Cyber-Physical Mutation tool
 
-This tool is part of a master thesis done at the University of Nebraska-Lincoln.
+This tool is part of a [master thesis](https://digitalcommons.unl.edu/computerscidiss/165/) done at the University of Nebraska-Lincoln.
 
-Author names: Balaji Balasubramaniam, Prof. Sebastian Elbaum, and Prof. Justin Bradley.
+Author names: [Balaji Balasubramaniam](https://sites.google.com/site/balajibytes/download-pub), [Prof. Sebastian Elbaum](https://engineering.virginia.edu/faculty/sebastian-elbaum), and [Prof. Justin Bradley](https://justinbradley.unl.edu/).
 
 # Definitions
 Mutation - Change certain statement in the source code of a target file.<br />
@@ -30,16 +30,18 @@ The mutation tool runs for all C programming language family. The tool was teste
 Three different MATLAB Simulink control system project files are present in the folloing folders (you have to make sure all the depedencies are properly configured in the `config.txt` file and available in your system):<br />
 b747cl_grt_rtw<br />
 ccpi16a_grt_rtw<br />
-rct_helico_grt_rtw<br />
+rct_helico_grt_rtw
 
 Sample mutants generated from these models are present in the following folders:<br />
 mutants_b747cl<br />
 mutants_ccpi16a<br />
-mutants_rct_helico<br />
+mutants_rct_helico
 
 The actual code of the mutation tool is present `../mutationdocker/code/mutator` folder, and the output mutants after executing the tool will be present `../mutationdocker/code/mutator/mutants` folder. For every run, you have to delete all the files present inside the `mutator/mutants` folder, do not delete the folder, delete only the contents of the folder.
 
-Post processing analysis are written using MATLAB scripts, the files for them are present in 'mutator/matlab_scripts'.
+Post processing analysis are written using MATLAB scripts, the files are present in the following folder:<br/>
+`mutationdocker/code/mutator/matlab_scripts/`<br/>
+Please visit the following link for master thesis and know more about the results: https://digitalcommons.unl.edu/computerscidiss/165/
 
 To run the tool:
 1) cd into `../mutationdocker/code/mutator` folder
@@ -210,4 +212,6 @@ mutants_rct_helico
 
 Using this information and looking into the `config` files (inside `mutationdocker/code/mutator/` folder - config_b747cl.txt,  config_ccpi16a.txt, and config_rct_helico.txt) for each project will help you to replicate and also compare the results with mine. 
 
-
+3) Where to get more information about the tool/ where is the master thesis?<br/>
+Please visit the following link for master thesis: https://digitalcommons.unl.edu/computerscidiss/165/<br/>
+My personal website link: https://sites.google.com/site/balajibytes/download-pub
