@@ -106,11 +106,13 @@ Steps for naming the container (this should be carried out only after performing
 $ ./mutator <seed> <number> <categories> <target_file>
 ```
 
-seed = random seed 
+seed = random seed. 
 
 number = number of mutants, please note that number 0 represents the maximum possible mutants to be generated from the target_file.
 
-categories = PET (Precision&Accuracy, Exception Handling, Time and Space)
+categories = PET (Precision&Accuracy, Exception Handling, Time and Space).
+
+target_file = C/ C++ file name for which the mutants has to be generated.
 
 # Output details
 The generated mutants are present in a folder called 'mutants'. This folder contains subfolders for each template as mentioned in the MutationTemplates file.
