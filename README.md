@@ -185,7 +185,7 @@ Thanks to William (Mike) Turner from NIMBUS lab. Here are some issues that was f
 
   a) “./mutator” did not default to an executable script. Use chmod 775 to make it executable.
         
-  b) First run of ./mutator as in README, “./mutator -s 7 -n 0 -c PET b747cl.c” resulted in a coredump error that “cloc” not found. Ubuntu VM returns a cloc –version of 1.60. You have to run apt-get install cloc within Docker container, got version 1.74, and now the script runs.
+  b) First run of ./mutator as in README, “./mutator -s 7 -n 0 -c PET b747cl.c” resulted in a coredump error that “cloc” not found. Check your machine what version of cloc is used. In Ubuntu, if it returns a cloc –version of 1.60 then you have to run apt-get install cloc within Docker container. Even if you get version 1.74 or higher, you should be able to run the scripts.
   
   # FAQ
   1) Can I run this mutation tool against my poject in C/ C++?<br />
