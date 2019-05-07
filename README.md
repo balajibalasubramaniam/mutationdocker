@@ -11,14 +11,14 @@ Mutationdocker - Virtual machine environment configured to run the mutator.<br /
 Mutant - Programming file that has changed the code that is different from the original program.<br />
 
 # About
-Cyber-Physical Mutation tool has five different phases:
+Cyber-Physical Mutation tool is part of a [master thesis](https://digitalcommons.unl.edu/computerscidiss/165/) done at the University of Nebraska-Lincoln. The tool has five different phases:
 1) Installing the tool - download and build - read "Tool run - step by step tutorial" section of this document.
 2) Mutant generation - using "./mutator" command, the order of execution is first ./runconfiguration (if `config.txt` file is changed), followed by make, and then the tool execution.
 3) Mutant compilation - using "compilerun.bash" script - change the path in `compilerun.bash` depending on your project.
 4) Mutant execution - using "runsave.bash" script - change the path in `runsave.bash` depending on your project.
 5) Result analysis - using MATLAB&copy; scripts, see "folder structure" section of this document. 
 
-In general, each mutation tool has different inputs, some mutation tools require a C function as input. The Cyber-Physical mutation tool requires a C family programming file as input. As a result, in order to understand about the input file, this tool has to recognize all the dependencies of the C project where the input C family programming file resides. This dependency linking is carried out using the process called "configuration". Under the "configure" section of this document, I have explained these steps as optional. The dependencies are provided in `config.txt` file (it will vary based on the project), after you change this file based on your project you have to execute `./runconfiguration <config file name>`. I have mentioned this instruction under "To build and run" section of this document.
+In general, each mutation tool has different inputs, some mutation tools require a function/ sub-routine as input. The Cyber-Physical mutation tool requires a C family programming file as input. As a result, in order to understand about the input file, this tool has to recognize all the dependencies of the C project where the input C family programming file resides. This dependency linking is carried out using the process called "configuration". Under the "configure" section of this document, I have explained these steps as optional. The dependencies are provided in `config.txt` file (it will vary based on the project), after you change this file based on your project you have to execute `./runconfiguration <config file name>`. I have mentioned this instruction under "To build and run" section of this document.
  
 Automation scripts are needed to automate the compilation and execution of the mutated target_file, here you have to specify the path based on your project. Please find instructions under the "configure" section of this document.
 
