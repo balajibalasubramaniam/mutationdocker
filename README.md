@@ -188,10 +188,10 @@ Thanks to William (Mike) Turner from NIMBUS lab. Here are some issues that was f
   b) First run of ./mutator as in README, “./mutator -s 7 -n 0 -c PET b747cl.c” resulted in a coredump error that “cloc” not found. Check your machine what version of cloc is used. In Ubuntu, if it returns a cloc –version of 1.60 then you have to run apt-get install cloc within Docker container. Even if you get version 1.74 or higher, you should be able to run the scripts.
   
   # FAQ
-  1) Can I run this mutation tool against my poject in C/ C++?<br />
+  **1) Can I run this mutation tool against my poject in C/ C++?<br />**
   Yes, you can. The tool is completely free to use. The `make` command you use for your project build will be setting up flags during the build process. First, you have to mention these flag settings, include directories and any dependencies in the mutation tool using the `config.txt` file. And then you have to execute `./runconfiguration`. Please note, if you make changes to `Makefile` of the mutation tool then you have to rebuild it with `make` before running the tool. To summarize, the order of execution is first `./runconfiguration`, followed by `make`, and then the tool execution.
   
-  2) Can I replicate your results?<br />
+ **2) Can I replicate your results?<br />**
   Yes, you can. But unfortunately, this docker contains only the tool and already mutated files for the three projects: b747cl, cruise control, and rct helicopter. Since MATLAB&copy; is licensed software and the three projects use MATLAB&copy; specific data types and libraries generated from MATLAB&copy; Simulink environment, we were unable to provide all the related files. However, if you have a MATLAB&copy; license then you can download these three different MATLAB&copy; Simulink control system project files for free in the following link:
   
 Boeing 747 closed loop: https://www.mathworks.com/matlabcentral/fileexchange/3019-airlib. 
@@ -212,6 +212,17 @@ mutants_rct_helico
 
 Using this information and looking into the `config` files (inside `mutationdocker/code/mutator/` folder - config_b747cl.txt,  config_ccpi16a.txt, and config_rct_helico.txt) for each project will help you to replicate and also compare the results with mine. 
 
-3) Where to get more information about the tool/ where is the master thesis?<br/>
+**3) How to configure MATLAB Simulink model for the mutation tool?**
+For Boeing 747 project (you can download the Simulink model from https://www.mathworks.com/matlabcentral/fileexchange/3019-airlib), I will explain the steps. The first step is to add Simulink output blocks to the model and ensure you are able to store the output data (data such as altitude, airspeed, etc.) of the simulation in a MAT-file. After this generate C code from the Simulink model. Here is a useful link for generating C code from Simulink model: https://www.mathworks.com/help/rtw/gs/model-and-simulation.html?s_tid=mwa_osa_a. This should be fairly straight forward, just focus on generating C code section of the document. Next step is to build and execute the generated C code in a terminal shell (after closing the MATLAB environment), for this purpose, using the terminal get inside the directory where you have generated the C code. Please remember the directory in Github: mutationdocker/code/b747cl_grt_rtw/. You should have files something similar to these after generating C code. But more importantly, make sure you have the same suffix "grt_rtw" in the directory name. Because based on the platform and compiler these suffix names will be different. Once you have confirmed the suffix then you can do build using the "make -f b747cl.mk" command. To execute, use the "timeout 10s ./<exe file>" command.
+
+If you are able to do this then open the b747cl.mk file. It should have "include paths" and "defines" section. These are the information that we want to configure in the mutation tool using the "mutationdocker/code/mutator/config_b747cl.txt" file. Once configured properly, you should not have any issues running the boeing747 project. Just note that the data stored in the MAT file will be used later for results analysis purposes. 
+
+Congratulations! now you have successfully configured the mutation tool to run on MATLAB Simulink generated C file. You can now go to the beginning of the document and perform the following using the mutation tool:
+1) Mutant generation - using "./mutator" command, the order of execution is first ./runconfiguration (if `config.txt` file is changed), followed by make, and then the tool execution.
+2) Mutant compilation - using "compilerun.bash" script - change the path in `compilerun.bash` depending on your project.
+3) Mutant execution - using "runsave.bash" script - change the path in `runsave.bash` depending on your project.
+4) Result analysis - using MATLAB&copy; scripts, see "folder structure" section of this document. 
+
+**4) Where to get more information about the tool/ where is the master thesis?<br/>**
 Please visit the following link for master thesis: https://digitalcommons.unl.edu/computerscidiss/165/<br/>
 My personal website link: https://sites.google.com/site/balajibytes/download-pub
